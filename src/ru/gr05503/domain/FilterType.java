@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public enum FilterType {
     ALL("Все", task -> true),
     ACTIVE("Активные", task -> !task.isDone()),
-    OVERDUE("Просроченные", task -> !task.isDone() && task.getDeadline().isBefore(LocalDate.now())),
+    OVERDUE("Просроченные", task -> task.isOverdue()),
     HIGH_PRIORITY("Высокий приоритет", task -> task.getPriority().equals("HIGH"));
 
     private final String displayName;
