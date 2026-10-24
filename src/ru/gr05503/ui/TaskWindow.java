@@ -71,8 +71,8 @@ public class TaskWindow extends JFrame implements TaskView {
                 Task task = (Task) value;
                 String text = (task.isDone() ? "[x] " : "[ ] ") + task.getTitle()
                         + " | " + task.getDeadline() + " | " + task.getPriority();
-                // SHOTGUN: третья копия правила «просрочено»
-                if (!task.isDone() && task.getDeadline().isBefore(LocalDate.now())) {
+
+                if (task.isOverdue()) {
                     text += " (просрочено)";
                 }
                 setText(text);

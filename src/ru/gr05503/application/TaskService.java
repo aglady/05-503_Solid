@@ -36,10 +36,10 @@ public class TaskService {
         List<Task> tasks = repository.findAll();
         int done = 0;
         int overdue = 0;
-        // SHOTGUN: правило «просрочено» продублировано в трёх местах (сервис, презентер, окно)
+
         for (Task t : tasks) {
             if (t.isDone()) done++;
-            if (!t.isDone() && t.getDeadline().isBefore(LocalDate.now())) overdue++;
+            if (t.isOverdue()) overdue++;
         }
         return "Всего: " + tasks.size() + ", выполнено: " + done + ", просрочено: " + overdue;
     }

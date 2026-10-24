@@ -17,4 +17,7 @@ public class Task {
     public void setPriority(String priority) { this.priority = priority; }
     public boolean isDone()                  { return done; }
     public void setDone(boolean done)        { this.done = done; }
+    public boolean isOverdue(){
+        return !done && deadline.isBefore(LocalDate.now());
+    }
 }
