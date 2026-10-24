@@ -1,11 +1,10 @@
 package ru.gr05503.application;
 
-import ru.gr05503.domain.ArchivedTask;
-import ru.gr05503.domain.Task;
-import ru.gr05503.domain.TaskRepository;
+import ru.gr05503.domain.*;
 import ru.gr05503.infrastructure.InMemoryTaskRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskService {
@@ -43,5 +42,17 @@ public class TaskService {
             if (!t.isDone() && t.getDeadline().isBefore(LocalDate.now())) overdue++;
         }
         return "Всего: " + tasks.size() + ", выполнено: " + done + ", просрочено: " + overdue;
+    }
+
+    public List<Task> getFilteredTasks(FilterType filterType){
+        List<Task> result = new ArrayList<>();
+
+        TaskFilter filter = filterType.getFilter();
+        for (Task task: repository.findAll()){
+            if (filter.matches(task)){
+                result.add(task);
+            }
+        }
+        return result;
     }
 }
